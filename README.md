@@ -4,7 +4,6 @@ I'm building [Nyaya](https://nyaya.cloud) — a local-first desktop workstation 
 
 Written in **Rust** (Tauri v2) on the backend and **React** on the frontend. The database is SQLite encrypted with SQLCipher, and encryption keys live in Windows Credential Manager / macOS Keychain — they never touch the filesystem. I'm unreasonably proud of how the disaster recovery system works (Argon2id key derivation, AES-256-GCM envelope, crash-safe atomic writes), and unreasonably tired of debugging cross-runtime Unicode encoding issues between Rust, Node.js, and the browser DOM.
 
-Currently piloting with a few advocates at the **Madhya Pradesh High Court** (Indore Bench).
 
 ### Open source stuff I extracted from this project
 
