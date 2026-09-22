@@ -1,8 +1,8 @@
 # Hey, I'm Keshav 👋
 
-I'm building [Nyaya](https://nyaya.cloud) — a local-first desktop workstation for Indian lawyers and advocates. Think of it as legal case management that actually respects client confidentiality: everything is encrypted on your machine, the cloud only sees what you explicitly push, and even then it can't modify your canonical records.
+I'm building [Nyaya](https://nyaya.cloud)  a local-first desktop workstation for Indian lawyers and advocates. Think of it as legal case management that actually respects client confidentiality: everything is encrypted on your machine, the cloud only sees what you explicitly push, and even then it can't modify your canonical records.
 
-Written in **Rust** (Tauri v2) on the backend and **React** on the frontend. The database is SQLite encrypted with SQLCipher, and encryption keys live in Windows Credential Manager / macOS Keychain — they never touch the filesystem. I'm unreasonably proud of how the disaster recovery system works (Argon2id key derivation, AES-256-GCM envelope, crash-safe atomic writes), and unreasonably tired of debugging cross-runtime Unicode encoding issues between Rust, Node.js, and the browser DOM.
+Written in **Rust** (Tauri v2) on the backend and **React** on the frontend. The database is SQLite encrypted with SQLCipher, and encryption keys live in Windows Credential Manager / macOS Keychain they never touch the filesystem. I'm unreasonably proud of how the disaster recovery system works (Argon2id key derivation, AES-256-GCM envelope, crash-safe atomic writes), and unreasonably tired of debugging cross-runtime Unicode encoding issues between Rust, Node.js, and the browser DOM.
 
 
 ### Open source stuff I extracted from this project
