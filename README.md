@@ -1,96 +1,23 @@
-# Keshav Nagar
-**Systems & Security Researcher · Founder, CrocodileSecurity**  
-`Indore, MP, India` · [nyaya.cloud](https://nyaya.cloud) · `keshav@nyaya.cloud`
+# Hey, I'm Keshav 👋
 
----
+I'm building [Nyaya](https://nyaya.cloud) — a local-first desktop workstation for Indian lawyers and advocates. Think of it as legal case management that actually respects client confidentiality: everything is encrypted on your machine, the cloud only sees what you explicitly push, and even then it can't modify your canonical records.
 
-```
-[Local-First Primitives]  ──►  [Applied Cryptography]  ──►  [Deterministic State Machines]
-        Rust / Tauri v2              RFC 8785 / Ed25519            Fail-Closed Execution
-```
+Written in **Rust** (Tauri v2) on the backend and **React** on the frontend. The database is SQLite encrypted with SQLCipher, and encryption keys live in Windows Credential Manager / macOS Keychain — they never touch the filesystem. I'm unreasonably proud of how the disaster recovery system works (Argon2id key derivation, AES-256-GCM envelope, crash-safe atomic writes), and unreasonably tired of debugging cross-runtime Unicode encoding issues between Rust, Node.js, and the browser DOM.
 
-I design and build deterministic, local-first desktop architectures and verify untrusted AI runtimes using applied cryptography and systems programming. My primary focus is engineering software where data confidentiality, auditability, and mathematical integrity are hard invariants, not afterthoughts.
+Currently piloting with a few advocates at the **Madhya Pradesh High Court** (Indore Bench).
 
----
+### Open source stuff I extracted from this project
 
-### Core Engineering Focus
+- [`jcs-canonical-json`](https://github.com/lightss19863-arch/jcs-canonical-json) — RFC 8785 deterministic JSON serialization. Built this after an annoying afternoon figuring out why my receipt signatures were breaking on emoji keys (UTF-16 sort order ≠ UTF-8 byte order, who knew).
+- [`os-keyvault`](https://github.com/lightss19863-arch/os-keyvault) — Cross-platform OS credential store wrapper. Because writing encryption keys to a config file next to the database is security theater.
+- [`native-trust-verify`](https://github.com/lightss19863-arch/native-trust-verify) — Ed25519 / P-256 signature verification against compiled-in JWK trust bundles. The desktop uses this to verify cloud-generated documents before accepting them.
 
-* **Deterministic Runtime Verification**: Engineering multi-stage content-addressed execution pipelines around untrusted LLM compilers. Rejection of ungrounded model outputs via deterministic assertion graphs, strict schema admission, and signed cryptographic receipts.
-* **Local-First & Encrypted Storage**: Zero-cloud canonical architectures using SQLCipher AES-256 page-level encryption, OS credential store integration (Windows Credential Manager / macOS Keychain), and Argon2id-derived offline disaster recovery.
-* **Transaction & Outbox Systems**: Monotonic state machines with row-revision compare-and-swap (CAS), RFC 8785 canonical digest validation, and append-only hash chains for crash-resilient desktop-to-cloud synchronization.
-* **Application Security & Threat Modeling**: Security research covering authentication protocol validation, session boundary enforcement, zero-trust data egress gates, and prompt isolation against indirect prompt injection.
+### What I work with daily
 
----
+Rust · Tauri v2 · React · TypeScript · SQLCipher · SQLite · PostgreSQL · Ed25519 · AES-256-GCM · Argon2id
 
-### Key Systems Architecture: Nyaya (Graphite) Workstation
+### Reach me
 
-Lead architect and developer of **[Nyaya](https://nyaya.cloud)**, an enterprise-grade, local-first legal workstation written in **Rust (Tauri v2)**, **TypeScript/Node.js**, and **React**.
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        DESKTOP BOUNDARY (RUST)                         │
-│                                                                        │
-│   ┌──────────────────────┐               ┌─────────────────────────┐   │
-│   │ Native Trust Bundle  │               │   SQLCipher Encrypted   │   │
-│   │ (Ed25519 / P-256)    │               │   Workspace Database    │   │
-│   └──────────┬───────────┘               └────────────┬────────────┘   │
-│              │                                        │                │
-│              ▼                                        ▼                │
-│   ┌────────────────────────────────────────────────────────────┐       │
-│   │ Run Outbox Service (Monotonic CAS & SHA-256 Event Chaining) │      │
-│   └─────────────────────────────┬──────────────────────────────┘       │
-└─────────────────────────────────┼──────────────────────────────────────┘
-                                  │ Signed Egress (RFC 8785 JCS)
-                                  ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                  CLOUD RUNTIME (PROPOSAL-ONLY COMPILER)                │
-│                                                                        │
-│   [validate_bindings] ──► [generate_proposal] ──► [deterministic_safety]
-│                                                          │             │
-│   [final_validation]  ◄── [sign_receipts]    ◄───────────┘             │
-│                                                                        │
-│   * Zero Canonical Mutation           * Expiring Distributed Leases    │
-│   * Hierarchical Receipt Tree         * Data-Only Quarantined Prompts  │
-└────────────────────────────────────────────────────────────────────────┘
-```
-
-#### Technical Guarantees Implemented:
-1. **Proposal-Only Cloud Execution**: The cloud runtime possesses zero canonical write authority. It emits staged proposals with `proposalOnly: true` and `noCanonicalMutation: true`. Promotion requires a native 4-eyes approval transaction verified in Rust.
-2. **Assertion Support Graph**: Generated substantive clauses must link to authenticated source spans or verified authorities. Unsupported propositions fail closed into explicit `unresolved:<clauseId>` issues.
-3. **Receipt Hierarchy**: Section-level component receipts close into ordered subject digests, which close into terminal execution receipts signed via Ed25519 over RFC 8785 canonical JSON.
-4. **Cross-Runtime Encoding Precision**: String redlining and diff boundaries are tracked strictly in Unicode code points, eliminating encoding drift and AST coordinate desynchronization across Rust, Node.js, and browser DOMs.
-
----
-
-### Technical Primitives & Tooling
-
-```
-Systems & Desktop       Rust, Tauri v2, SQLCipher (AES-256), Win32 / macOS Keychain APIs
-Languages               Rust, TypeScript, JavaScript (ES6+), Python, SQL
-Storage & Distributed   PostgreSQL (Advisory / Distributed Leases, CAS), SQLite FTS5
-Security & Cryptography RFC 8785 JCS, Ed25519, P-256 ECDSA, Argon2id, AES-256-GCM, SHA-256
-Frontend Runtime        React, Vite, Web Components, Custom Virtualized Editors
-DevOps & Infrastructure Linux, Bash, PowerShell, Git, CI/CD Hardening, Docker
-```
-
----
-
-### Contact & Verification
-* **Engineering & Platform:** [nyaya.cloud](https://nyaya.cloud)
-* **Security Assessments:** CrocodileSecurity (`keshav@nyaya.cloud`)
-* **LinkedIn:** [keshav-nagar](https://www.linkedin.com/in/keshav-nagar-1709372a9)
-
-<!--
-**lightss19863-arch/lightss19863-arch** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- **Email:** keshav@nyaya.cloud
+- **LinkedIn:** [keshav-nagar](https://www.linkedin.com/in/keshav-nagar-1709372a9)
+- **Product:** [nyaya.cloud](https://nyaya.cloud)
