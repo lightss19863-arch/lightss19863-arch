@@ -1,4 +1,4 @@
-# Hey, I'm Keshav 👋
+# Hey, I'm Keshav
 
 I'm building [Nyaya](https://nyaya.cloud)  a local-first desktop workstation for Indian lawyers and advocates. Think of it as legal case management that actually respects client confidentiality: everything is encrypted on your machine, the cloud only sees what you explicitly push, and even then it can't modify your canonical records.
 
